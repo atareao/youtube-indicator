@@ -67,18 +67,6 @@ def download(element):
         aname = element['name']
         aext = element['ext']
         dest_file = os.path.join(adir, '%s.%s' % (aname, aext))
-        '''
-        try:
-            req = urllib.request.urlopen(url)
-            data = req.read()
-            local_file = open(dest_file, 'wb')
-            # Write to our local file
-            local_file.write(f.read())
-            local_file.close()
-            return dest_file
-        except Exception as e:
-            print('Error downloading...', e)
-        '''
         r = requests.get(url, stream=True)
         try:
             with open(dest_file, 'wb') as f:
@@ -88,7 +76,6 @@ def download(element):
             return dest_file
         except Exception as e:
             print('Error downloading...', e)
-        
         return None
 
 
