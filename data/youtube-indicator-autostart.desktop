@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Icon = /opt/extras.ubuntu.com/youtube-indicator/share/youtube-indicator/icons/youtube-indicator.svg
+Exec = /opt/extras.ubuntu.com/youtube-indicator/bin/youtube-indicator
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name=youtube-indicator-autostart
+Comment=YouTube-Indicator official shortcut

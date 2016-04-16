@@ -1,0 +1,16 @@
+[Desktop Entry]
+_Name = YouTube-Indicator
+_GenericName = YouTube-Indicator
+_Comment = An indicator to download videos from YouTube
+Exec = /opt/extras.ubuntu.com/youtube-indicator/bin/youtube-indicator
+Icon = /opt/extras.ubuntu.com/youtube-indicator/share/youtube-indicator/icons/youtube-indicator.svg
+Type = Application
+Terminal = false
+StartupNotify = true
+Encoding = UTF-8
+Categories = Utility;
+X-Ubuntu-Gettext-Domain = youtube-indicator
+$Name[es] = _('YouTube-Indicator')
+$GenericName[es] = _('YouTube-Indicator')
+$Comment[es] = _('An indicator to download videos from YouTube')
+

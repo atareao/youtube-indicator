@@ -1,0 +1,33 @@
+youtube-indicator (0.3.0-0extras15.10.0) wily; urgency=medium
+
+  * More providers to download (same as youtube-dl)
+  * Message error when processing url
+  * Message error when downloading file
+  * Using requests to download files
+
+ -- Lorenzo Carbonell <lorenzo.carbonell.cerezo@gmail.com>  Sat, 16 Apr 2016 18:42:16 +0200
+
+youtube-indicator (0.2.0-0extras15.10.1) wily; urgency=medium
+
+  * Added dependecie youtube-dl
+  * Removed dbus 
+
+ -- Lorenzo Carbonell <lorenzo.carbonell.cerezo@gmail.com>  Sat, 16 Apr 2016 17:15:21 +0200
+
+youtube-indicator (0.1.1-0extras15.10.0) wily; urgency=medium
+
+  * Updated youtube-dl
+
+ -- Lorenzo Carbonell <lorenzo.carbonell.cerezo@gmail.com>  Tue, 19 Jan 2016 21:59:42 +0100
+
+youtube-indicator (0.1.0-0extras14.04.1) trusty; urgency=medium
+
+  * Fixed a bug with exec
+
+ -- Lorenzo Carbonell <atareao@trusty>  Mon, 18 Aug 2014 11:07:38 +0200
+
+youtube-indicator (0.1.0-0extras14.04.0) trusty; urgency=medium
+
+  * First release
+
+ -- Lorenzo Carbonell <atareao@trusty>  Fri, 02 May 2014 10:40:01 +0200

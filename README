@@ -1,0 +1,29 @@
+==================
+Youtube-Indicator
+==================
+
+Youtube-Indicator an indicator to download from youtube
+
+For more information, please visit our website:
+http://launchpad.net/youtube-indicator/
+or
+http://www.atareao.es
+
+============
+Requirements
+============
+
+Required dependencies:
+
+	gir1.2-gtk-3.0,
+	gir1.2-gdkpixbuf-2.0,
+	gir1.2-appindicator3-0.1,
+	gir1.2-notify-0.7,
+
+========
+Download
+========
+
+Download the package:
+
+    $ bzr branch lp:youtube-indicator
