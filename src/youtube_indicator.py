@@ -300,7 +300,8 @@ class YouTube_Indicator(GObject.GObject):
                  conector_event='activate',
                  conector_action=lambda x:
                  webbrowser.open(
-                    'https://launchpad.net/youtube-indicator'))
+                    'http://www.atareao.es/apps/youtube-indicator-o-como-\
+descargar-videos-de-youtube-a-lo-facil/'))
         add2menu(help_menu,
                  text=_('Get help online...'),
                  conector_event='activate',
@@ -312,19 +313,20 @@ class YouTube_Indicator(GObject.GObject):
                  conector_event='activate',
                  conector_action=lambda x:
                  webbrowser.open(
-                    'https://translations.launchpad.net/youtube-indicator'))
+                    'https://github.com/atareao/youtube-indicator'))
         add2menu(help_menu,
                  text=_('Report a bug...'),
                  conector_event='activate',
                  conector_action=lambda x:
                  webbrowser.open(
-                    'https://bugs.launchpad.net/youtube-indicator'))
+                    'https://github.com/atareao/youtube-indicator/issues'))
         add2menu(help_menu)
         web = add2menu(help_menu,
                        text=_('Homepage'),
                        conector_event='activate',
                        conector_action=lambda x: webbrowser.open(
-                        'http://www.atareao.es/tag/youtube-indicator'))
+                        'http://www.atareao.es/apps/youtube-indicator-o-como-\
+descargar-videos-de-youtube-a-lo-facil/'))
         twitter = add2menu(help_menu,
                            text=_('Follow us in Twitter'),
                            conector_event='activate',

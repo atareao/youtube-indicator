@@ -1,3 +1,9 @@
+youtube-indicator (0.4.1-0extras15.10.0) wily; urgency=medium
+
+  * On only one result bug fixed
+
+ -- Lorenzo Carbonell <lorenzo.carbonell.cerezo@gmail.com>  Sun, 17 Apr 2016 08:29:02 +0200
+
 youtube-indicator (0.4.0-0extras15.10.0) wily; urgency=medium
 
   * Vimeo added
