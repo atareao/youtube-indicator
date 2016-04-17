@@ -97,7 +97,6 @@ class SaveDialog(Gtk.Dialog):
         labels = {}
         label_t = []
         for aformat in formats:
-            print(aformat)
             label = aformat['ext']
             if 'width' in aformat.keys() and\
                     aformat['width'] is not None and\

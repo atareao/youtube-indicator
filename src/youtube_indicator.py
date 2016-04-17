@@ -62,13 +62,17 @@ NUM_THREADS = 4
 
 def download(element):
     if element is not None:
-        url = element['url']
+        print('===============================')
+        pprint.pprint(element)
+        print('===============================')
+        url = element['format']['url']
         adir = element['dir']
         aname = element['name']
-        aext = element['ext']
+        aext = element['format']['ext']
+        headers = element['format']['http_headers']
         dest_file = os.path.join(adir, '%s.%s' % (aname, aext))
-        r = requests.get(url, stream=True)
         try:
+            r = requests.get(url, stream=True, headers=headers)
             with open(dest_file, 'wb') as f:
                 for chunk in r.iter_content(chunk_size=1024):
                     if chunk:
@@ -195,12 +199,16 @@ class YouTube_Indicator(GObject.GObject):
                                      os.path.join(comun.ICON))
             self.notification.show()
             return
-        mv = []
         urls = {}
         print('***********************+')
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(result['formats'])
+        pprint.pprint(result)
         print('***********************+')
+        if 'thumbnail' not in result.keys():
+            result['thumbnail'] = None
+        if 'formats' not in result.keys():
+            someformats = []
+            someformats.append(result)
+            result['formats'] = someformats
         cm = SaveDialog(
             result['title'], result['formats'], result['thumbnail'])
         if cm.run() == Gtk.ResponseType.ACCEPT:
@@ -209,14 +217,19 @@ class YouTube_Indicator(GObject.GObject):
                 Gtk.main_iteration()
             print('**** Start downloading ****')
             elements = []
-            for i, aformat in enumerate(result['formats']):
-                if aformat['format_id'] in cm.get_selected():
-                    newelement = {}
-                    newelement['url'] = aformat['url']
-                    newelement['dir'] = self.downloaddir
-                    newelement['name'] = result['title']+'_%s' % i
-                    newelement['ext'] = aformat['ext']
-                    elements.append(newelement)
+            if 'formats' in result.keys() and\
+                    result['formats'] is not None:
+                for i, aformat in enumerate(result['formats']):
+                    if aformat['format_id'] in cm.get_selected():
+                        newelement = {}
+                        newelement['format'] = aformat
+                        newelement['url'] = aformat['url']
+                        newelement['dir'] = self.downloaddir
+                        newelement['name'] = result['title']+'_%s' % i
+                        newelement['ext'] = aformat['ext']
+                        elements.append(newelement)
+            else:
+                pass
             manager = Manager(elements, download)
             manager.connect('start_process', self.on_downloading_start)
             manager.connect('element_processed', self.on_element_processed)
