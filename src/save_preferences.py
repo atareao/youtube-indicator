@@ -5,7 +5,7 @@
 #
 # This file is part of YouTube-Indicator
 #
-# Copyright (C) 2014
+# Copyright (C) 2014 - 2017
 # Lorenzo Carbonell Cerezo <lorenzo.carbonell.cerezo@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -21,19 +21,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
 import gi
-gi.require_version('Gtk', '3.0')
+try:
+    gi.require_version('Gtk', '3.0')
+except Exception as e:
+    print(e)
+    exit(-1)
 from gi.repository import Gtk
-from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 import comun
 import urllib.request
 from comun import _
-import sys
-sys.path.insert(1, '/usr/lib/python2.7/dist-packages/')
-import youtube_dl
-from youtube_dl.extractor.youtube import YoutubeIE
-import operator
 
 
 class SaveDialog(Gtk.Dialog):

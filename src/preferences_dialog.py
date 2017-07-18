@@ -3,9 +3,9 @@
 #
 # preferences_dialog.py
 #
-# This file is part of PushBullet-Indicator
+# This file is part of YouTube-Indicator
 #
-# Copyright (C) 2014
+# Copyright (C) 2014 - 2017
 # Lorenzo Carbonell Cerezo <lorenzo.carbonell.cerezo@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -21,14 +21,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
 import gi
-gi.require_version('Gtk', '3.0')
+try:
+    gi.require_version('Gtk', '3.0')
+except Exception as e:
+    print(e)
+    exit(-1)
 from gi.repository import Gtk
-from gi.repository import Gdk
 import comun
 import os
 import shutil
-import webbrowser
 from comun import _
 from configurator import Configuration
 
@@ -138,7 +141,7 @@ class PreferencesDialog(Gtk.Dialog):
         configuration = Configuration()
         configuration.set('monitor-clipboard', self.switch1.get_active())
         create_or_remove_autostart(self.switch2.get_active())
-        if self.switch3.get_active() == True:
+        if self.switch3.get_active() is True:
             configuration.set('theme', 'light')
         else:
             configuration.set('theme', 'dark')

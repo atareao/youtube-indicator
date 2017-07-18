@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# pushbullet-indicator.py
+# youtube_indicator.py
 #
-# This file is part of PushBullet-Indicator
+# This file is part of YouTube-Indicator
 #
-# Copyright (C) 2014
+# Copyright (C) 2014 - 2017
 # Lorenzo Carbonell Cerezo <lorenzo.carbonell.cerezo@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -21,8 +21,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
 import gi
-gi.require_version('Gtk', '3.0')
+try:
+    gi.require_version('Gtk', '3.0')
+    gi.require_version('Gdk', '3.0')
+    gi.require_version('GLib', '2.0')
+    gi.require_version('GdkPixbuf', '2.0')
+    gi.require_version('AppIndicator3', '0.1')
+    gi.require_version('Notify', '0.7')
+    gi.require_version('GObject', '2.0')
+except Exception as e:
+    print(e)
+    exit(-1)
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GLib
@@ -32,55 +43,46 @@ from gi.repository import Notify
 from gi.repository import GObject
 import os
 import time
-import shlex
 import webbrowser
-import subprocess
 import sys
 import dbus
-import urllib
-import requests
 
-import pprint
 
 from dbus.mainloop.glib import DBusGMainLoop
-import concurrent.futures
+from concurrent import futures
 
 from configurator import Configuration
 from save_preferences import SaveDialog
 from preferences_dialog import PreferencesDialog
+from doitinbackgroud import DoItInBackground
 from comun import _
 import comun
-from processmanager import Manager
-from status import TimeUpdater
-
-sys.path.insert(1, '/usr/lib/python2.7/dist-packages/')
-import youtube_dl
+try:
+    import youtube_dl
+except Exception:
+    sys.path.insert(1, '/usr/lib/python2.7/dist-packages/')
+    import youtube_dl
 
 
 NUM_THREADS = 4
 
 
-def download(element):
-    if element is not None:
-        print('===============================')
-        pprint.pprint(element)
-        print('===============================')
-        url = element['format']['url']
-        adir = element['dir']
-        aname = element['name']
-        aext = element['format']['ext']
-        headers = element['format']['http_headers']
-        dest_file = os.path.join(adir, '%s.%s' % (aname, aext))
+def resolve_capture(text, indicator):
+    result = None
+    if text is not None and (text.startswith('http://') or
+                             text.startswith('https://')):
         try:
-            r = requests.get(url, stream=True, headers=headers)
-            with open(dest_file, 'wb') as f:
-                for chunk in r.iter_content(chunk_size=1024):
-                    if chunk:
-                        f.write(chunk)
-            return dest_file
+            ydl = youtube_dl.YoutubeDL({'outtmpl': '%(id)s%(ext)s'})
+            # Add all the available extractors
+            ydl.add_default_info_extractors()
+            result = ydl.extract_info(text, download=False)
+            print('***********************+')
+            print(result)
+            print('***********************+')
+            indicator.emit('captured_youtube_url', text, result)
         except Exception as e:
-            print('Error downloading...', e)
-        return None
+            print('******', str(e), '*********')
+    return result
 
 
 def add2menu(menu, text=None, icon=None,
@@ -104,17 +106,10 @@ def add2menu(menu, text=None, icon=None,
     return menu_item
 
 
-def wait(time_lapse):
-    time_start = time.time()
-    time_end = (time_start + time_lapse)
-    while time_end > time.time():
-        while Gtk.events_pending():
-            Gtk.main_iteration()
-        time.sleep(0.3)
-
-
 class YouTube_Indicator(GObject.GObject):
     __gsignals__ = {
+        'captured_youtube_url': (GObject.SIGNAL_RUN_FIRST,
+                                 GObject.TYPE_NONE, (str, object,)),
         'downloading_start': (GObject.SIGNAL_RUN_FIRST, GObject.TYPE_NONE, ()),
         'downloading_end': (GObject.SIGNAL_RUN_FIRST, GObject.TYPE_NONE, ()),
     }
@@ -130,7 +125,7 @@ class YouTube_Indicator(GObject.GObject):
         self.notification = Notify.Notification.new('', '', None)
         #
         clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
-        clipboard.connect('owner-change', self.capture_clipboard)
+        clipboard.connect('owner-change', self.on_capture_in_clipboard)
         #
         self.indicator = appindicator.Indicator.new(
             'YouTube-Indicator',
@@ -143,33 +138,65 @@ class YouTube_Indicator(GObject.GObject):
         self.indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
         self.indicator.connect('scroll-event', self.on_scroll)
         #
+        self.connect('captured_youtube_url', self.on_captured_youtube_url)
+        #
         self.indicator.set_menu(menu)
 
-    def capture_clipboard(self, data1, data2):
+    def emit(self, *args):
+        GLib.idle_add(GObject.GObject.emit, self, *args)
+
+    def on_capture_in_clipboard(self, data1, data2):
         if self.monitor_clipboard and not self.downloading:
             clipboard = data1
             text = clipboard.wait_for_text()
+            newtime = int(time.time() / 100)
+            print('????', text, newtime, '????')
             if text is not None and (
                     text.startswith('http://') or
-                    text.startswith('https://')):
-                try:
-                    ydl = youtube_dl.YoutubeDL({'outtmpl': '%(id)s%(ext)s'})
-                    ydl.add_default_info_extractors()
-                    ydl.extract_info(text, download=False)
-                    url = text
-                    newtime = int(time.time()*100)
-                    if self.last_capture_url != url\
-                            or self.last_capture_time != newtime:
-                        self.last_capture_url = url
-                        self.last_capture_time = newtime
-                        self.captured_youtube_url(url)
-                except Exception as e:
-                    print('Capture clipboard error', e)
-                    msg = _('Error processing url')
-                    self.notification.update('YouTube-Indicator',
-                                             msg,
-                                             os.path.join(comun.ICON))
-                    self.notification.show()
+                    text.startswith('https://')) and (
+                        self.last_capture_url != text
+                        or self.last_capture_time != newtime):
+                self.last_capture_url = text
+                self.last_capture_time = newtime
+                # We can use a with statement to ensure threads are cleaned up
+                # promptly
+                print(time.time(), 'antes')
+                executor = futures.ThreadPoolExecutor(max_workers=1)
+                executor.submit(resolve_capture, text, self)
+                print(time.time(), 'despues')
+
+    def on_captured_youtube_url(self, widget, url, result):
+        if url is not None and (url.startswith('http://') or
+                                url.startswith('https://')):
+            print('===================== aqui2 ==================')
+            if 'thumbnail' not in result.keys():
+                result['thumbnail'] = None
+            if 'formats' not in result.keys():
+                someformats = []
+                someformats.append(result)
+                result['formats'] = someformats
+            cm = SaveDialog(
+                result['title'], result['formats'], result['thumbnail'])
+            if cm.run() == Gtk.ResponseType.ACCEPT:
+                cm.hide()
+                elements = []
+                if 'formats' in result.keys() and\
+                        result['formats'] is not None:
+                    for i, aformat in enumerate(result['formats']):
+                        if aformat['format_id'] in cm.get_selected():
+                            newelement = {}
+                            newelement['format'] = aformat
+                            newelement['url'] = aformat['url']
+                            newelement['dir'] = self.downloaddir
+                            newelement['name'] = result['title']+'_%s' % i
+                            newelement['ext'] = aformat['ext']
+                            elements.append(newelement)
+                if len(elements) > 0:
+                    diib = DoItInBackground(_('Downloading YouTube files'),
+                                            None,
+                                            elements)
+                    diib.run()
+            cm.destroy()
 
     def on_scroll(self, widget, steps, direcction):
         self.change_status()
@@ -182,62 +209,6 @@ class YouTube_Indicator(GObject.GObject):
         else:
             self.menu_capture.set_label(_('Capture'))
             self.indicator.set_icon(comun.DISABLED_ICON[self.theme])
-
-    def captured_youtube_url(self, url):
-        while Gtk.events_pending():
-            Gtk.main_iteration()
-        try:
-            ydl = youtube_dl.YoutubeDL({'outtmpl': '%(id)s%(ext)s'})
-            # Add all the available extractors
-            ydl.add_default_info_extractors()
-            result = ydl.extract_info(url, download=False)
-        except Exception as e:
-            msg = _('Error processing url')
-            print('******', str(e), '*********')
-            self.notification.update('YouTube-Indicator',
-                                     msg,
-                                     os.path.join(comun.ICON))
-            self.notification.show()
-            return
-        urls = {}
-        print('***********************+')
-        pprint.pprint(result)
-        print('***********************+')
-        if 'thumbnail' not in result.keys():
-            result['thumbnail'] = None
-        if 'formats' not in result.keys():
-            someformats = []
-            someformats.append(result)
-            result['formats'] = someformats
-        cm = SaveDialog(
-            result['title'], result['formats'], result['thumbnail'])
-        if cm.run() == Gtk.ResponseType.ACCEPT:
-            cm.hide()
-            while Gtk.events_pending():
-                Gtk.main_iteration()
-            print('**** Start downloading ****')
-            elements = []
-            if 'formats' in result.keys() and\
-                    result['formats'] is not None:
-                for i, aformat in enumerate(result['formats']):
-                    if aformat['format_id'] in cm.get_selected():
-                        newelement = {}
-                        newelement['format'] = aformat
-                        newelement['url'] = aformat['url']
-                        newelement['dir'] = self.downloaddir
-                        newelement['name'] = result['title']+'_%s' % i
-                        newelement['ext'] = aformat['ext']
-                        elements.append(newelement)
-            else:
-                pass
-            manager = Manager(elements, download)
-            manager.connect('start_process', self.on_downloading_start)
-            manager.connect('element_processed', self.on_element_processed)
-            manager.connect('error_processing_element',
-                            self.on_error_processing_element)
-            manager.connect('end_process', self.on_downloading_end)
-            manager.process()
-        cm.destroy()
 
     def on_error_processing_element(self, data1, data2):
         self.notification.update('YouTube-Indicator',
@@ -257,8 +228,6 @@ class YouTube_Indicator(GObject.GObject):
         time.sleep(0.1)
         self.indicator.set_icon(comun.DOWNLOADING_ICON[self.theme])
         self.indicator.set_attention_icon(comun.DOWNLOADING_ICON[self.theme])
-        while Gtk.events_pending():
-            Gtk.main_iteration()
         self.notification.update('YouTube-Indicator',
                                  _('Start downloading file'),
                                  os.path.join(comun.ICON))
@@ -416,7 +385,7 @@ descargar-videos-de-youtube-a-lo-facil/'))
         about_dialog.set_name(comun.APPNAME)
         about_dialog.set_version(comun.VERSION)
         about_dialog.set_copyright(
-            'Copyrignt (c) 2014-2016\nLorenzo Carbonell Cerezo')
+            'Copyrignt (c) 2014-2017\nLorenzo Carbonell Cerezo')
         about_dialog.set_comments(_('An indicator for capture YouTube'))
         about_dialog.set_license('''
 This program is free software: you can redistribute it and/or modify it under
