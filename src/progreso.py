@@ -110,7 +110,11 @@ class Progreso(Gtk.Dialog):
             GLib.idle_add(self.destroy)
         else:
             fraction = float(self.current_size) / float(self.total_size)
-            GLib.idle_add(self.progressbar.set_fraction, fraction)
+            print('////', fraction, '////')
+            if round(fraction, 5) >= 1.0:
+                GLib.idle_add(self.destroy)
+            else:
+                GLib.idle_add(self.progressbar.set_fraction, fraction)
 
     def set_element(self, widget=None, element=''):
         GLib.idle_add(self.label.set_text, str(element))

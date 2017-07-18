@@ -39,7 +39,7 @@ class SaveDialog(Gtk.Dialog):
     def __init__(self, title, formats=[], url=None):
         #
         Gtk.Dialog.__init__(self,
-                            'YouTube Indicator | '+_('Preferences'),
+                            'YouTube Indicator | '+_('Select formats'),
                             None,
                             Gtk.DialogFlags.MODAL |
                             Gtk.DialogFlags.DESTROY_WITH_PARENT,

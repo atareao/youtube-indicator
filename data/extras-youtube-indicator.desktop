@@ -10,3 +10,6 @@ StartupNotify = true
 Encoding = UTF-8
 Categories = Utility;
 X-Ubuntu-Gettext-Domain = youtube-indicator
+Name[es] = Indicador de PushBullet
+GenericName[es] = Indicador de PushBullet
+Comment[es] = An indicator to download videos from YouTube

@@ -1,3 +1,9 @@
+youtube-indicator (0.5.1-0extras17.04.0) zesty; urgency=medium
+
+  * Improved progress dialof
+
+ -- Lorenzo Carbonell <lorenzo.carbonell.cerezo@gmail.com>  Tue, 18 Jul 2017 14:40:43 +0200
+
 youtube-indicator (0.5.0-0extras17.04.0) zesty; urgency=medium
 
   * Concurrence
