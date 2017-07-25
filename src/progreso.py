@@ -33,6 +33,7 @@ except Exception as e:
 from gi.repository import Gtk
 from gi.repository import GLib
 from gi.repository import GObject
+import comun
 
 
 class Progreso(Gtk.Dialog):
@@ -47,6 +48,7 @@ class Progreso(Gtk.Dialog):
         self.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
         self.set_size_request(330, 30)
         self.set_resizable(False)
+        self.set_icon_from_file(comun.ICON)
         self.connect('destroy', self.close)
         self.set_modal(True)
         vbox = Gtk.VBox(spacing=5)
