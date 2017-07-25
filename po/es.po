@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: youtube-indicator 0.5.0\n"
+"Project-Id-Version: youtube-indicator 0.5.1\n"
 "Report-Msgid-Bugs-To: lorenzo.carbonell.cerezo@gmail.com\n"
-"POT-Creation-Date: 2017-07-18 14:40+0200\n"
+"POT-Creation-Date: 2017-07-24 19:57+0200\n"
 "PO-Revision-Date: 2014-05-02 08:26+0200\n"
 "Last-Translator: Lorenzo Carbonell <lorenzo.carbonell.cerezo@gmail.com>\n"
 "Language-Team: Spanish\n"
@@ -22,17 +22,17 @@ msgid "Select formats"
 msgstr ""
 
 #: /datos/Sync/Programacion/Python/youtube-indicator/src/preferences_dialog.py:53
-#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:360
+#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:357
 msgid "Preferences"
 msgstr "Preferencias"
 
 #: /datos/Sync/Programacion/Python/youtube-indicator/src/preferences_dialog.py:73
 msgid "Capture clipboard"
-msgstr ""
+msgstr "Captura el portapapeles"
 
 #: /datos/Sync/Programacion/Python/youtube-indicator/src/preferences_dialog.py:79
 msgid "Autostart"
-msgstr ""
+msgstr "Auto inicio"
 
 #: /datos/Sync/Programacion/Python/youtube-indicator/src/preferences_dialog.py:85
 msgid "Icon light"
@@ -40,178 +40,98 @@ msgstr "Iconos claros"
 
 #: /datos/Sync/Programacion/Python/youtube-indicator/src/preferences_dialog.py:95
 msgid "Select folder"
-msgstr ""
+msgstr "Selecciona el directorio"
 
 #: /datos/Sync/Programacion/Python/youtube-indicator/src/preferences_dialog.py:105
 msgid "Please choose a folfer"
-msgstr ""
+msgstr "Por favor selecciona un directorio"
 
 #: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:195
 msgid "Downloading YouTube files"
-msgstr ""
+msgstr "Descargando archivos de YouTube"
 
 #: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:207
 #: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:257
 msgid "Not capture"
-msgstr ""
+msgstr "No capturar"
 
 #: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:210
 #: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:260
-#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:350
+#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:347
 msgid "Capture"
-msgstr ""
+msgstr "Capturar"
 
 #: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:215
 msgid "Error downloading file"
-msgstr ""
+msgstr "Error descargando el archivo"
 
 #: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:222
 msgid "File downloaded"
-msgstr ""
+msgstr "Archivo descargado"
 
 #: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:232
 msgid "Start downloading file"
-msgstr ""
+msgstr "Comenzando a descargar el archivo"
 
 #: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:239
 msgid "All files downloaded"
-msgstr ""
+msgstr "Todos los archivos descargados"
 
 #: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:268
 msgid "Homepage..."
 msgstr "Página web..."
 
-#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:275
+#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:273
 msgid "Get help online..."
 msgstr "Consigue ayuda en línea..."
 
-#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:281
+#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:279
 msgid "Translate this application..."
 msgstr "Traduce esta aplicación..."
 
-#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:287
+#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:285
 msgid "Report a bug..."
 msgstr "Informa de un error..."
 
-#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:294
+#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:292
 msgid "Homepage"
 msgstr "Página web"
 
-#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:300
+#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:298
 msgid "Follow us in Twitter"
 msgstr "Síguenos en Twitter"
 
-#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:307
+#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:304
 msgid "Follow us in Google+"
 msgstr "Síguenos en Google+"
 
-#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:313
+#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:310
 msgid "Follow us in Facebook"
 msgstr "Síguenos en Facebook"
 
-#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:339
+#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:336
 msgid "About"
 msgstr "Acerca de..."
 
-#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:365
+#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:362
 msgid "Help"
 msgstr "Ayuda"
 
-#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:374
+#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:371
 msgid "Exit"
 msgstr "Salir"
 
-#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:389
+#: /datos/Sync/Programacion/Python/youtube-indicator/src/youtube_indicator.py:386
 #, fuzzy
 msgid "An indicator for capture YouTube"
-msgstr "Un indicador para PushBullet"
+msgstr "Un indicador para YouTube"
 
 #: /datos/Sync/Programacion/Python/youtube-indicator/extras-youtube-indicator.desktop.in:13
 #: /datos/Sync/Programacion/Python/youtube-indicator/extras-youtube-indicator.desktop.in:14
 #, fuzzy
 msgid "YouTube-Indicator"
-msgstr "Indicador de PushBullet"
+msgstr "Indicador de YouTube"
 
 #: /datos/Sync/Programacion/Python/youtube-indicator/extras-youtube-indicator.desktop.in:15
 msgid "An indicator to download videos from YouTube"
 msgstr ""
-
-#, fuzzy
-#~ msgid "Drop one file on me!"
-#~ msgstr "Arrastra uno o varios archivos aquí"
-
-#~ msgid "PushBullet action"
-#~ msgstr "Acción PushBullet"
-
-#~ msgid "Title"
-#~ msgstr "Título"
-
-#~ msgid "Note"
-#~ msgstr "Nota"
-
-#~ msgid "Link"
-#~ msgstr "Enlace"
-
-#~ msgid "File"
-#~ msgstr "Archivo"
-
-#~ msgid "List"
-#~ msgstr "Lista"
-
-#~ msgid "Items separated by carriage return"
-#~ msgstr "Elementos de la lista separados por retorno de carro"
-
-#~ msgid "Address"
-#~ msgstr "Dirección"
-
-#, fuzzy
-#~ msgid "Address recieved"
-#~ msgstr "Dirección enviada"
-
-#, fuzzy
-#~ msgid "File recieved"
-#~ msgstr "Archivo enviado"
-
-#, fuzzy
-#~ msgid "Link recieved"
-#~ msgstr "Enlace enviado"
-
-#, fuzzy
-#~ msgid "List recieved"
-#~ msgstr "Lista enviada"
-
-#, fuzzy
-#~ msgid "Note recieved"
-#~ msgstr "Nota enviada"
-
-#~ msgid "Main"
-#~ msgstr "Principal"
-
-#, fuzzy
-#~ msgid "Allow access to PushBullet"
-#~ msgstr "Un indicador para PushBullet"
-
-#, fuzzy
-#~ msgid "An indicator for working with pushbullet"
-#~ msgstr "Un indicador para PushBullet"
-
-#~ msgid "Send address"
-#~ msgstr "Enviar dirección"
-
-#~ msgid "Send note"
-#~ msgstr "Enviar nota"
-
-#~ msgid "Send link"
-#~ msgstr "Enviar enlace"
-
-#~ msgid "Send file"
-#~ msgstr "Enviar archivo"
-
-#~ msgid "Send list"
-#~ msgstr "Enviar lista"
-
-#~ msgid "API key"
-#~ msgstr "Clave API"
-
-#~ msgid "PushBullet Web"
-#~ msgstr "Página de PushBullet"

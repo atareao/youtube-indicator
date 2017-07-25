@@ -50,7 +50,7 @@ def create_or_remove_autostart(create):
 class PreferencesDialog(Gtk.Dialog):
     def __init__(self):
         #
-        Gtk.Dialog.__init__(self, 'YouTube Indicator | '+_('Preferences'),
+        Gtk.Dialog.__init__(self, 'YouTube Indicator | ' + _('Preferences'),
                                   None,
                                   Gtk.DialogFlags.MODAL |
                                   Gtk.DialogFlags.DESTROY_WITH_PARENT,

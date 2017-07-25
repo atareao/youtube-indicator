@@ -154,8 +154,8 @@ class YouTube_Indicator(GObject.GObject):
             if text is not None and (
                     text.startswith('http://') or
                     text.startswith('https://')) and (
-                        self.last_capture_url != text
-                        or self.last_capture_time != newtime):
+                        self.last_capture_url != text or
+                        self.last_capture_time != newtime):
                 self.last_capture_url = text
                 self.last_capture_time = newtime
                 # We can use a with statement to ensure threads are cleaned up
@@ -188,7 +188,7 @@ class YouTube_Indicator(GObject.GObject):
                             newelement['format'] = aformat
                             newelement['url'] = aformat['url']
                             newelement['dir'] = self.downloaddir
-                            newelement['name'] = result['title']+'_%s' % i
+                            newelement['name'] = result['title'] + '_%s' % i
                             newelement['ext'] = aformat['ext']
                             elements.append(newelement)
                 if len(elements) > 0:
@@ -267,48 +267,45 @@ class YouTube_Indicator(GObject.GObject):
         add2menu(help_menu,
                  text=_('Homepage...'),
                  conector_event='activate',
-                 conector_action=lambda x:
-                 webbrowser.open(
-                    'http://www.atareao.es/apps/youtube-indicator-o-como-\
-descargar-videos-de-youtube-a-lo-facil/'))
+                 conector_action=lambda x: webbrowser.open('http://www.atareao\
+.es/apps/youtube-indicator-o-como-descargar-videos-de-youtube-a-lo-facil/'))
         add2menu(help_menu,
                  text=_('Get help online...'),
                  conector_event='activate',
                  conector_action=lambda x:
-                 webbrowser.open(
-                    'https://answers.launchpad.net/youtube-indicator'))
+                 webbrowser.open('https://answers.launchpad.net/\
+youtube-indicator'))
         add2menu(help_menu,
                  text=_('Translate this application...'),
                  conector_event='activate',
                  conector_action=lambda x:
-                 webbrowser.open(
-                    'https://github.com/atareao/youtube-indicator'))
+                 webbrowser.open('https://github.com/atareao/\
+youtube-indicator'))
         add2menu(help_menu,
                  text=_('Report a bug...'),
                  conector_event='activate',
                  conector_action=lambda x:
-                 webbrowser.open(
-                    'https://github.com/atareao/youtube-indicator/issues'))
+                 webbrowser.open('https://github.com/atareao/\
+youtube-indicator/issues'))
         add2menu(help_menu)
         web = add2menu(help_menu,
                        text=_('Homepage'),
                        conector_event='activate',
-                       conector_action=lambda x: webbrowser.open(
-                        'http://www.atareao.es/apps/youtube-indicator-o-como-\
-descargar-videos-de-youtube-a-lo-facil/'))
+                       conector_action=lambda x: webbrowser.open('http://www.\
+atareao.es/apps/youtube-indicator-o-como-descargar-videos-de-youtube-a\
+-lo-facil/'))
         twitter = add2menu(help_menu,
                            text=_('Follow us in Twitter'),
                            conector_event='activate',
                            conector_action=lambda x:
-                           webbrowser.open(
-                            'https://twitter.com/atareao'))
+                           webbrowser.open('https://twitter.com/atareao'))
         googleplus = add2menu(
             help_menu,
             text=_('Follow us in Google+'),
             conector_event='activate',
             conector_action=lambda x:
-            webbrowser.open(
-                'https://plus.google.com/118214486317320563625/posts'))
+            webbrowser.open('https://plus.google.com/\
+118214486317320563625/posts'))
         facebook = add2menu(help_menu,
                             text=_('Follow us in Facebook'),
                             conector_event='activate',
@@ -448,9 +445,10 @@ def main():
         exit(0)
     Notify.init('youtube-indicator')
     GLib.threads_init()
-    youtube_indicator = YouTube_Indicator()
+    YouTube_Indicator()
     Gtk.main()
     exit(0)
+
 
 if __name__ == "__main__":
     main()

@@ -39,7 +39,7 @@ class SaveDialog(Gtk.Dialog):
     def __init__(self, title, formats=[], url=None):
         #
         Gtk.Dialog.__init__(self,
-                            'YouTube Indicator | '+_('Select formats'),
+                            'YouTube Indicator | ' + _('Select formats'),
                             None,
                             Gtk.DialogFlags.MODAL |
                             Gtk.DialogFlags.DESTROY_WITH_PARENT,
@@ -117,7 +117,7 @@ class SaveDialog(Gtk.Dialog):
         sorted_labels = sorted(labels.items(), key=lambda x: x[1])
         for i, key_value in enumerate(sorted_labels):
             self.checkboxs[key_value[0]] = Gtk.CheckButton(key_value[1])
-            table.attach(self.checkboxs[key_value[0]], 0, 1, i, i+1)
+            table.attach(self.checkboxs[key_value[0]], 0, 1, i, i + 1)
         self.show_all()
 
     def close_application(self, event):

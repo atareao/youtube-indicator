@@ -30,14 +30,13 @@ def is_package():
     return not os.path.dirname(os.path.abspath(__file__)).endswith('src')
 
 
-PARAMS = {
-            'first-time': True,
-            'version': '',
-            'theme': 'light',
-            'autostart': False,
-            'monitor-clipboard': True,
-            'download-dir': os.path.expanduser('~')
-            }
+PARAMS = {'first-time': True,
+          'version': '',
+          'theme': 'light',
+          'autostart': False,
+          'monitor-clipboard': True,
+          'download-dir': os.path.expanduser('~')
+          }
 
 
 APP = 'youtube-indicator'
@@ -96,7 +95,7 @@ line = f.readline()
 f.close()
 pos = line.find('(')
 posf = line.find(')', pos)
-VERSION = line[pos+1:posf].strip()
+VERSION = line[pos + 1: posf].strip()
 if not is_package():
     VERSION = VERSION + '-src'
 try:
