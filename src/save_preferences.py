@@ -95,6 +95,10 @@ class SaveDialog(Gtk.Dialog):
         scrolled_window.add(table)
         labels = {}
         label_t = []
+        labels_audio = {}
+        label_t_audio = []
+        labels_video = {}
+        label_t_video = []
         for aformat in formats:
             label = aformat['ext']
             if 'width' in aformat.keys() and\
@@ -111,13 +115,40 @@ class SaveDialog(Gtk.Dialog):
             if 'format_note' in aformat.keys() and\
                     aformat['format_note'] is not None:
                 label += ' - %s' % (aformat['format_note'])
-            if label not in label_t:
-                label_t.append(label)
-                labels[aformat['format_id']] = label
+            if aformat['format_note'].endswith('audio'):
+                if label not in label_t_audio:
+                    label_t_audio.append(label)
+                    labels_audio[aformat['format_id']] = label
+            elif aformat['format_note'].endswith('video'):
+                if label not in label_t_video:
+                    label_t_audio.append(label)
+                    labels_video[aformat['format_id']] = label
+            else:
+                if label not in label_t:
+                    label_t.append(label)
+                    labels[aformat['format_id']] = label
         sorted_labels = sorted(labels.items(), key=lambda x: x[1])
-        for i, key_value in enumerate(sorted_labels):
+        sorted_labels_audio = sorted(labels_audio.items(), key=lambda x: x[1])
+        sorted_labels_video = sorted(labels_video.items(), key=lambda x: x[1])
+        i = 0
+        table.attach(Gtk.Label('Video and audio'), 0, 1, i, i + 1)
+        for key_value in sorted_labels:
+            i += 1
             self.checkboxs[key_value[0]] = Gtk.CheckButton(key_value[1])
             table.attach(self.checkboxs[key_value[0]], 0, 1, i, i + 1)
+        i += 1
+        table.attach(Gtk.Label('Only audio'), 0, 1, i, i + 1)
+        for key_value in sorted_labels_audio:
+            i += 1
+            self.checkboxs[key_value[0]] = Gtk.CheckButton(key_value[1])
+            table.attach(self.checkboxs[key_value[0]], 0, 1, i, i + 1)
+        i += 1
+        table.attach(Gtk.Label('Only video'), 0, 1, i, i + 1)
+        for key_value in sorted_labels_video:
+            i += 1
+            self.checkboxs[key_value[0]] = Gtk.CheckButton(key_value[1])
+            table.attach(self.checkboxs[key_value[0]], 0, 1, i, i + 1)
+
         self.show_all()
 
     def close_application(self, event):

@@ -1,3 +1,9 @@
+youtube-indicator (0.5.2-0extras17.04.0) zesty; urgency=medium
+
+  * Sorted downloads
+
+ -- Lorenzo Carbonell <lorenzo.carbonell.cerezo@gmail.com>  Fri, 04 Aug 2017 19:49:41 +0200
+
 youtube-indicator (0.5.1-0extras17.04.2) zesty; urgency=medium
 
   * Improved progress dialog
